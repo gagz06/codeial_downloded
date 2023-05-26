@@ -51,7 +51,41 @@ module.exports.create = function(req,res){
         }
     });
 }
-// sign in
-module.exports.createSession = function(req,res){
 
+
+
+// sign in method
+module.exports.createSession = function(req,res){
+    
+    // steps to authenticate
+    // find the user
+    User.findOne({email:req.body.email})
+    .then((user)=>{
+        //handle user if found
+        if(user){
+            //handle password which doesn't match
+            if(user.password!=req.body.password){
+                return res.redirect('back');
+            }
+
+            //handle session creation
+            res.cookie('user_id',user.id);
+            return res.redirect('/users/profile');
+
+        }
+        else{
+            //handle user not found
+            return res.redirect('back');
+        }
+    }).catch((err)=>{
+        
+            console.log("Error in signin in",err);
+            return res.redirect('back');
+    });
+
+
+
+  
+
+  
 }
