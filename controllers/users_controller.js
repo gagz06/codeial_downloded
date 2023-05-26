@@ -68,8 +68,6 @@ module.exports.create = function(req,res){
     });
 }
 
-
-
 // sign in method
 module.exports.createSession = function(req,res){
     
@@ -104,4 +102,16 @@ module.exports.createSession = function(req,res){
   
 
   
+}
+
+module.exports.signout = function(req,res){
+    res.clearCookie('user_id');
+    res.redirect('/users/sign-in');
+    // if(req.cookies.user_id){
+
+    // }
+    // else{
+    //     window.alert('No session exist');
+    //     res.redirect('/users/sign-in');
+    // }
 }
