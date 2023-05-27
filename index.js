@@ -33,6 +33,7 @@ app.use(session({
     name: 'codeial',
     //To do change the secret from deployment in production mode
     secret:'blahsomething',
+    //session not initialized i.e user not logged in
     saveUninitialized: false,
     resave: false,
     cookie:{
@@ -42,6 +43,8 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use(passport.setAuthenticatedUser);
 
 // use express router
 app.use('/', require('./routes'));
