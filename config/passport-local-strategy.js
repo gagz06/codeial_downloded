@@ -18,7 +18,7 @@ passport.use(new LocalStartegy({
             return done(null,user);
         })
         .catch((err)=>{
-            console.log('Error in finding user --> passport');
+            console.log('Error in finding user --> passport1');
             return done(err);
         });
 
@@ -34,11 +34,11 @@ done(null,user.id);
 // deserializing the user from the key in the cookies
 passport.deserializeUser(function(id,done){
 User.findById(id)
-.then(()=>{
+.then((user)=>{
     return done(null,user);
 })
 .catch((err)=>{ 
-    console.log('Error in finding user --> passport');
+    console.log('Error in finding user --> passport2');
     return done(err);});
 });
 
