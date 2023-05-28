@@ -11,7 +11,8 @@ const db=require('./config/mongoose');
 const session = require('express-session');
 const passport = require('passport');
 const passportLocal = require('./config/passport-local-strategy');
-
+//const MongoStore = require('connect-mongo')(session);  this got depricated
+const MongoStore = require('connect-mongo');
 app.use(express.urlencoded());
 
 app.use(cookieParser());
@@ -29,6 +30,7 @@ app.set('layout extractScripts', true);
 app.set('view engine', 'ejs');
 app.set('views', './views');
 
+//mongo store is used to store the session cookie in the db
 app.use(session({
     name: 'codeial',
     //To do change the secret from deployment in production mode
@@ -38,7 +40,17 @@ app.use(session({
     resave: false,
     cookie:{
         maxAge: (1000*60*100)
+    },
+    store:  MongoStore.create(
+    {
+        //instead of new MongoStore we used create as it's depricated
+        mongoUrl: 'mongodb://0.0.0.0/codeial_development',
+        autoRemove: 'disabled'
+    },
+    function(err){
+        console.log(err|| 'connect-mongodb setup ok');
     }
+    )
 }));
 
 app.use(passport.initialize());
