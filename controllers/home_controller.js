@@ -10,13 +10,20 @@ module.exports.home = function(req, res){
     //     });
     // });
 
-    Post.find({}).populate('user').then((posts)=>{
+    // using the instead of exec
+    // Post.find({}).populate('user').then((posts)=>{
+    //     return res.render('home', {
+    //         title: "Codeial | Home",
+    //         posts: posts
+    //     });
+    // });
+
+    Post.find({}).populate('user').exec((err,posts)=>{
         return res.render('home', {
             title: "Codeial | Home",
             posts: posts
         });
     });
-
 
     // code conerted by chat gpt
 //     Post.find({})
