@@ -1,7 +1,7 @@
 const User = require('../models/user');
 //const user =  require('../models/user');
 
-
+// not implementing async
 module.exports.profile = function(req, res){
     User.findById(req.params.id,function(err,user){
         return res.render('user_profile', {
