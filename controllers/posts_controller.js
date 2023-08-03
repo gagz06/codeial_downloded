@@ -1,12 +1,18 @@
 const Post = require("../models/post");
 const Comment = require("../models/comment");
+const userProfile= require("../models/user");
 module.exports.create = async function (req, res) {
   try {
     let post=await Post.create({
       content: req.body.content,
       user: req.user._id,
     });
-
+    //let userDetails = await userProfile.findById(req.user._id);
+    //const {password,...rest}=userDetails;
+    //to populate user in post and also exclude password field to be
+    //sent in response
+    post = await Post.findById(post._id).populate("user", "-password").exec();
+    
     // to check if req is ajax
     if(req.xhr){
       return  res.status(200).json({
@@ -31,6 +37,16 @@ module.exports.destroy = async function (req, res) {
     if (post.user == req.user.id) {
       post.remove();
       await Comment.deleteMany({ post: req.params.id });
+
+      if(req.xhr){
+        return res.status(200).json({
+          data:{
+            post_id: req.params.id
+          },
+          message: "Post deleted"
+        })
+      }
+
       req.flash('success','Post and associated comments deleted !');
       return res.redirect("back");
     } else {
