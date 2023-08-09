@@ -11,11 +11,11 @@ module.exports.index = async function(req,res) {
           path: "user",
         },
       });
-      const {password,...rest}=posts;
+      //const {password,...rest}=posts;
 
     return res.status(200).json({
         message : "List of all posts",
-        posts: rest
+        posts: posts
     })
 }
 
