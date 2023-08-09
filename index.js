@@ -11,6 +11,7 @@ const db=require('./config/mongoose');
 const session = require('express-session');
 const passport = require('passport');
 const passportLocal = require('./config/passport-local-strategy');
+const passportjwt = require('./config/passport-jwt-startegy');
 //const MongoStore = require('connect-mongo')(session);  this got depricated
 const MongoStore = require('connect-mongo'); 
 const flash = require('connect-flash');
