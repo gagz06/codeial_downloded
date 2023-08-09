@@ -16,5 +16,10 @@
     #layout-header nav .auth-links ul li {
       margin-right: 10px; }
   #layout-header nav a {
-    color: white;
+    color: yellow;
     text-decoration: none; }
+
+    #head-container > ul >li > a {
+      color:  yellow;
+      font-size: 20px;
+    }
