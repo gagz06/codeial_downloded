@@ -5,7 +5,7 @@ const app = express();
 const port = 8000;
 const expressLayouts = require('express-ejs-layouts');
 const db=require('./config/mongoose');
-
+const passportGoogle = require('./config/passport-google-oauth2-startegy');
 
 // used for session cookie
 const session = require('express-session');
