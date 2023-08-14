@@ -12,7 +12,7 @@ module.exports.create = async function (req, res) {
       });
       post.comments.push(comment);
       post.save();
-      comment = await comment.populate('user', 'name').execPopulate();
+      comment = await Comment.findById(comment.id).populate("user", "-password").exec();
       commentMailers.newComment(comment);
       if (req.xhr){
         // Similar for comments to fetch the user's id!
@@ -39,7 +39,7 @@ module.exports.destroy = async function (req, res) {
     let comment= await Comment.findById(req.params.id);
     if (comment.user == req.user.id) {
         let postId = comment.post;
-        comment.remove();
+        comment.deleteOne();
         let post = await Post.findByIdAndUpdate(
           postId,{ $pull: {comments: req.params.id}});
           

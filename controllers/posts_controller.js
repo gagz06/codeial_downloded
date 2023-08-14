@@ -36,7 +36,7 @@ module.exports.destroy = async function (req, res) {
   try {
     let post = await Post.findById(req.params.id);
     if (post.user == req.user.id) {
-      post.remove();
+      post.deleteOne();
       await Comment.deleteMany({ post: req.params.id });
 
       if(req.xhr){
@@ -51,7 +51,7 @@ module.exports.destroy = async function (req, res) {
       req.flash('success','Post and associated comments deleted !');
       return res.redirect("back");
     } else {
-      //Window.alert("Not allowed to delete another user comment");
+      //Window.alert("Not allowed to delete anyother user comment");
       req.flash('error','Not allowed to delete another user comment !');
       return res.redirect("back");
     }
