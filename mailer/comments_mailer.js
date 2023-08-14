@@ -4,12 +4,12 @@ const nodeMailer = require('../config/nodemailer');
 
 exports.newComment = (comment)=>{
     console.log('inside newcomment mailer');
-    
+    console.log('******',comment);
     nodeMailer.transporter.sendMail({
         from: 'gagandahiya64',
         to: comment.user.email,
         subject: 'New comment Published',
-        html: '<h1> New comment is published </h1>',
+        html: '<h1> New comment is published - </h1>',
     },(err,info)=>{
         if(err){console.log('Error in sending mail',err);return;}
         console.log('Message sent',info);
