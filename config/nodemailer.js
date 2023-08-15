@@ -14,16 +14,16 @@ let transporter = nodemailer.createTransport({
 });
 
 let renderTemplate = (data, relativePath)=>{
-    let mainHTML;
-    ejs.render(
+    let mailHTML;
+    ejs.renderFile(
         path.join(__dirname,'../views/mailers',relativePath),
         data,
         function (err,template) {
             if(err){console.log('render template error',err);return;}
-            mainHTML=template;
+            mailHTML=template;
         }
     )
-    return mainHTML;
+    return mailHTML;
 }
 
 module.exports= {
