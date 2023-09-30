@@ -7,7 +7,7 @@ const expressLayouts = require('express-ejs-layouts');
 const db=require('./config/mongoose');
 const passportGoogle = require('./config/passport-google-oauth2-startegy');
 
-// used for session cookie
+// used for session cookie  
 const session = require('express-session');
 const passport = require('passport');
 const passportLocal = require('./config/passport-local-strategy');
@@ -16,6 +16,15 @@ const passportjwt = require('./config/passport-jwt-startegy');
 const MongoStore = require('connect-mongo'); 
 const flash = require('connect-flash');
 const customMware = require('./config/middleware');
+
+//chat server setup with socket.io
+const chatServer = require('http').Server(app);
+const chatSockets = require('./config/chat_sockets').chatSockets(chatServer);
+chatServer.prependListener("request", (req, res) => {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+ });
+chatServer.listen(5000);
+console.log('Chat server is listening on port 5000');
 
 app.use(express.urlencoded());
 
