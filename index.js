@@ -1,12 +1,13 @@
 const express = require('express');
 const cookieParser =  require('cookie-parser');
-
+const env = require('./config/environment');
 const app = express();
 const port = 8000;
 const expressLayouts = require('express-ejs-layouts');
 const db=require('./config/mongoose');
 const passportGoogle = require('./config/passport-google-oauth2-startegy');
-
+const logger = require('morgan');
+require('./config/view-helpers')(app);
 // used for session cookie  
 const session = require('express-session');
 const passport = require('passport');
@@ -20,19 +21,25 @@ const customMware = require('./config/middleware');
 //chat server setup with socket.io
 const chatServer = require('http').Server(app);
 const chatSockets = require('./config/chat_sockets').chatSockets(chatServer);
+
 chatServer.prependListener("request", (req, res) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
  });
 chatServer.listen(5000);
 console.log('Chat server is listening on port 5000');
 
+
+
 app.use(express.urlencoded());
 
 app.use(cookieParser());
 
-app.use(express.static('./assets'));
+app.use(express.static(env.asset_path));
 // make the uploads path availabel to the browser
 app.use('/uploads',express.static(__dirname+'/uploads'));
+
+app.use(logger(env.morgan.mode,env.morgan.options));
+
 app.use(expressLayouts);
 // extract style and scripts from sub pages into the layout
 app.set('layout extractStyles', true);
@@ -48,7 +55,7 @@ app.set('views', './views');
 app.use(session({
     name: 'codeial',
     //To do change the secret from deployment in production mode
-    secret:'blahsomething',
+    secret:env.session_cookie_key,
     //session not initialized i.e user not logged in
     saveUninitialized: false,
     resave: false,

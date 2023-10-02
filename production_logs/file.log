@@ -1,0 +1,8 @@
+[0mGET / [36m304[0m 207.728 ms - -[0m
+[0mGET /favicon.ico [33m404[0m 6.024 ms - 150[0m
+[0mGET /users/sign-in [36m304[0m 16.883 ms - -[0m
+[0mPOST /users/create-session [36m302[0m 13.480 ms - 46[0m
+[0mGET / [32m200[0m 32.322 ms - 12368[0m
+[0mGET /users/profile/6480c72923808a189c1cc266 [32m200[0m 450.990 ms - 2159[0m
+[0mGET /users/sign-out [36m302[0m 8.890 ms - 46[0m
+[0mGET / [32m200[0m 24.051 ms - 8284[0m
