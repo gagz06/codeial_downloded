@@ -21,8 +21,8 @@ const development = {
     port: 587,
     secure: false,
     auth: {
-      user: "gagandahiya64@gmail.com",
-      pass: "xeojhwdpsubwdquj",
+      user: process.env.SMTPUSER,
+      pass: process.env.SMTPPASS
     },
   },
   google_clientID:

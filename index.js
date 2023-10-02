@@ -2,12 +2,13 @@ const express = require('express');
 const cookieParser =  require('cookie-parser');
 const env = require('./config/environment');
 const app = express();
+require('./config/view-helpers')(app);
 const port = 8000;
 const expressLayouts = require('express-ejs-layouts');
 const db=require('./config/mongoose');
 const passportGoogle = require('./config/passport-google-oauth2-startegy');
 const logger = require('morgan');
-require('./config/view-helpers')(app);
+
 // used for session cookie  
 const session = require('express-session');
 const passport = require('passport');
